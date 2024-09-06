@@ -32,7 +32,8 @@ if uploaded_file is not None:
     
     # Save the resized image to an in-memory buffer
     buffer = io.BytesIO()
-    resized_image.save(buffer, format=resized_image.format)
+    image_format = resized_image.format if resized_image.format else 'PNG'  # Default to PNG if format is not set
+    resized_image.save(buffer, format=image_format)
     buffer.seek(0)
     
     # Create the new filename
@@ -47,7 +48,7 @@ if uploaded_file is not None:
         label="Download Resized Image",
         data=buffer,
         file_name=new_filename,
-        mime=f"image/{resized_image.format.lower()}"
+        mime=f"image/{image_format.lower()}"
     )
     
     st.success(f"The resized image is ready for download.")
