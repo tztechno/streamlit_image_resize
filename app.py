@@ -1,3 +1,4 @@
+
 import streamlit as st
 from PIL import Image
 import os
@@ -33,12 +34,16 @@ if uploaded_file is not None:
     original_filename = uploaded_file.name
     new_filename = f"{max_width}_{original_filename}"
     
+    # Get the directory to save the file
+    save_path = os.path.join(os.getcwd(), new_filename)
+    
     # Save the resized image
-    resized_image.save(new_filename)
+    resized_image.save(save_path)
     
     # Display the resized image
     st.image(resized_image, caption=f"Resized Image (Width: {max_width}px)", use_column_width=True)
     
     # Display the save location
-    st.success(f"The resized image has been saved: {new_filename}")
+    st.success(f"The resized image has been saved: {save_path}")
+
 
